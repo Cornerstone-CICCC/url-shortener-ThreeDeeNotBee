@@ -1,25 +1,36 @@
 {
   "name": "url-shortener",
   "version": "1.0.0",
-  "description": "",
+  "description": "In this assignment, you'll create a URL shortener application. This app should allow users to enter a full URL, generate a unique shortened version, and track how many times each shortened URL has been clicked. The application should:\r - Accept full URLs and generate a unique short URL.\r - Store these short URLs along with the original URL and click count.\r - Redirect users to the full URL when they access the short URL.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.0.1",
-    "express": "^4.17.1",
+    "ejs": "^3.1.10",
+    "express": "^4.22.2",
     "mongoose": "^5.9.1",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.17"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.8.7",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.19.19",
     "@types/shortid": "^2.2.0",
     "nodemon": "^2.0.2",
-    "typescript": "^5.6.3"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cornerstone-CICCC/url-shortener-ThreeDeeNotBee.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Cornerstone-CICCC/url-shortener-ThreeDeeNotBee/issues"
+  },
+  "homepage": "https://github.com/Cornerstone-CICCC/url-shortener-ThreeDeeNotBee#readme"
 }

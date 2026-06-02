@@ -1,35 +1,47 @@
-import express, { Request, Response } from 'express';
-import { urlencoded } from 'express';
-import { generate } from 'shortid';
+import express, { Request, Response } from 'express'
+import { urlencoded } from 'express'
+import { generate } from 'shortid'
 
-const app = express();
+const PORT = 3241
+const app = express()
 
-app.set('view engine', 'ejs');
-app.use(urlencoded({ extended: true }));
+app.set('view engine', 'ejs')
+app.use(urlencoded({ extended: true }))
 
-// In-memory storage for URLs
-// const urlDatabase: Record<string, { full: string; clicks: number }> = {};
+const urlDatabase: Record<string, { full: string; clicks: number }> = {}
 
 app.get('/', (req: Request, res: Response) => {
-  // Render the list of shortened URLs and their stats here
-  // const shortUrls = Object.entries(urlDatabase).map(([short, { full, clicks }]) => ({
-  //   full,
-  //   short,
-  //   clicks
-  // }));
-  res.render('index', { shortUrls: [] }); // Placeholder, students will populate
-});
+  const shortUrls = Object.entries(urlDatabase).map(
+    ([short, { full, clicks }]) => ({
+      full,
+      short,
+      clicks,
+    }),
+  )
+  res.render('index', { shortUrls })
+})
 
 app.post('/shortUrls', (req: Request, res: Response) => {
-  // Capture the full URL from form input
-  // Generate a unique short URL and store in urlDatabase
-  // Redirect back to home page
-});
+  const { fullUrl } = req.body
+
+  if (!fullUrl) {
+    res.status(400).send('URL is required')
+    return
+  }
+  const shortId = generate()
+  urlDatabase[shortId] = { full: fullUrl, clicks: 0 }
+  res.redirect('/')
+})
 
 app.get('/:shortUrl', (req: Request, res: Response) => {
-  // Check if short URL exists in urlDatabase
-  // Increment click count if found and redirect to full URL
-  // Send 404 status if short URL not found
-});
+  const { shortUrl } = req.params
+  const urlEntry = urlDatabase[shortUrl]
+  if (urlEntry) {
+    urlEntry.clicks++
+    res.redirect(urlEntry.full)
+  } else {
+    res.sendStatus(404)
+  }
+})
 
-app.listen(3200, () => console.log('Server started on port 3200'));
+app.listen(PORT, () => console.log('Server started on port ', PORT))
